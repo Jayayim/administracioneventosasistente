@@ -5,10 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,6 +17,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "Asistente", schema = "public")
+@ToString(exclude = "idEvento")
 public class Asistente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +43,7 @@ public class Asistente implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "fechaRegistro", nullable = false)
     private Date fechaRegistro;
+
 
     @ManyToOne
     @JoinColumn(name = "idEvento", nullable = false)
