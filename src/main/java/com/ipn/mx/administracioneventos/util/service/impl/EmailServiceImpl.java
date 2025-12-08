@@ -15,13 +15,17 @@ import java.io.File;
 
 @Service
 public class EmailServiceImpl implements EmailService {
-    @Autowired
+    @Autowired(required = false)
     private JavaMailSender mailSender;
 
     @Value("classpath:static/diccionariodatos26_1.pdf") //Carpeta resourfes->static
     Resource resourceFile;
     @Override
     public void sendEmail(String to, String subject, String text) {
+        if (mailSender == null) {
+            System.out.println("mailSender no configurado: se omite el envío de correo.");
+            return;
+        }
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper;
         try{
